@@ -1,0 +1,6 @@
+<h1>Kanbans
+
+ul#kanbans_list!= partial('kanban', {collection: kanbans});
+p
+  a(href="/kanban/new")
+    Add
