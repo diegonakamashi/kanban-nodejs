@@ -1,21 +1,16 @@
-var kanbans = [
-	{
-		id: 1,
-		user_id: 1,
-		name: 'Kanban Teste',
-		description: 'Kanban ja criado em memória'
-	}
-];
+var conn = require('./mysql-conn');
+
+
+module.exports.save = function(kanban){
+	conn.execute('INSERT INTO kanban SET USERNAME= ' + kanban.title + ', DESCRIPTION = ' + kanban.description);
+}
+
 
 module.exports.findByUserId = function(userId){
-	var _kanbans = [];
-	for(var i = 0; i < kanbans.length; i++){
-		var kanban = kanbans[i];
-		if(kanban.user_id = userId){
-			_kanbans.push(kanban);
-		}
-	}
-	return _kanbans;
+	var result = conn.execute('SELECT * FROM kanban k, user_kanban uk WHERE k.id = uk.kanbanId AND uk.userId = ' + userId);
+
+	console.log(result);
+	return [];
 }
 
 module.exports.create = function(kanban){

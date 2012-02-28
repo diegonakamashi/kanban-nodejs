@@ -62,6 +62,17 @@ app.get('/kanban', preFilter, function(req, res){
 	}});
 });
 
+app.get('/kanban/new', preFilter, function(req, res){
+	res.render('kanban/new', {locals:{
+		title: 'New Kanban'
+	}});
+});
+
+app.post('/kanban/new', preFilter, function(req, res){
+	var kanban = new Object();
+	
+});
+
 app.get('/kanban/:id', preFilter, function(req, res){
 	var kanban = kanbans.findById(req.params.id);
 
