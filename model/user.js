@@ -1,14 +1,17 @@
 var conn = require('./mysql-conn');
+var Step = require('step');
 
-module.exports.findByUsername = function(username){
+module.exports.findByUsername = function(username, callback){
 	var query = 'SELECT * FROM user WHERE username = \'' + username + '\' ';
 	console.log('Executing query : ' + query)
-	var result = conn.execute(query);
-	
-	console.log('RESULT: ' +result) ;
-
-	if(result && result.length > 0)
-		return result[0];
-
-	return null;
+	Step(
+		function executeQuery(){
+			conn.execute(query, this);	
+		},
+		function callCallback(err, result){
+			callback(err, result);
+		}
+	);
 }
+	
+

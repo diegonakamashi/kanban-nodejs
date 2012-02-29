@@ -6,7 +6,8 @@
 var express = require('express')
   , routes = require('./routes')
   , users = require('./model/user')
-  , kanbans = require('./model/kanban');
+  , kanbans = require('./model/kanban')
+  , Step = require('step');
 
 var app = module.exports = express.createServer();
 
@@ -46,23 +47,40 @@ app.get('/login', function(req, res){
 
 app.post('/session', function(req, res){
 	console.log('Searching user : ' + req.body.username + '\n');
-	var user = users.findByUsername(req.body.username);
-	if(user  && req.body.password == user.password){
-		req.session.user = user;
-		res.redirect('/kanban');
-	}else{
-		console.log('User not Found!\n');
-		res.redirect('/login');
-	}	
-
+	Step(
+		function findUser(){
+			users.findByUsername(req.body.username, this);
+		},
+		function comparePassword(err, results){
+			if(results.length > 0){
+				var user = results[0];
+				if(user  && req.body.password == user.password){
+					req.session.user = user;
+					res.redirect('/kanban');
+				}else{
+					res.redirect('/login');
+				}
+			}else{
+				console.log('User not Found!\n');
+				res.redirect('/login');
+			}	
+		}
+	)
 });
 
 app.get('/kanban', preFilter, function(req, res){
-	var _kanbans = kanbans.findByUserId(req.session.user.id);
-	res.render('kanban/list', {locals:{
-		title: 'Kanbans',
-		kanbans: _kanbans
-	}});
+	Step(
+		function findKanbanByUserId(){
+			kanbans.findByUserId(req.session.user.id, this);
+		},
+		function renderKanbanList(err, results){
+			console.log('ZZZZZZZZZZZZZZZZZZZZZZz');
+			res.render('kanban/list', {locals:{
+				title: 'Kanbans',
+				kanbans: results
+			}});
+		}
+	)
 });
 
 app.get('/kanban/new', preFilter, function(req, res){
