@@ -1,0 +1,1 @@
+INSERT INTO user SET USERNAME = 'admin', PASSWORD='21232f297a57a5a743894a0e4a801fc3', NAME='admin', role=1;

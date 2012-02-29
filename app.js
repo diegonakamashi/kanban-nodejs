@@ -36,14 +36,17 @@ app.configure('production', function(){
 app.get('/', preFilter, routes.index);
 
 app.get('/login', function(req, res){
-	res.render('login', {locals:{
-		title: 'Login'
-	}});
+	res.render('login', {
+		locals:{
+			title: 'Login'
+		},
+		layout: false
+	});
 });
 
 app.post('/session', function(req, res){
-	console.log('Searching user : ' + req.body.login + '\n');
-	var user = users.find_by_name(req.body.login);
+	console.log('Searching user : ' + req.body.username + '\n');
+	var user = users.findByUsername(req.body.username);
 	if(user  && req.body.password == user.password){
 		req.session.user = user;
 		res.redirect('/kanban');

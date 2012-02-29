@@ -1,15 +1,14 @@
-var users = [
-	{
-		id: 1,
-		name: 'admin',
-		password: 'teste'
-	}
-]
+var conn = require('./mysql-conn');
 
-module.exports.find_by_name = function(name){
-	for(var i = 0; i < users.length; i++){
-		if(users[i].name == name)
-			return users[i];
-	}
+module.exports.findByUsername = function(username){
+	var query = 'SELECT * FROM user WHERE username = \'' + username + '\' ';
+	console.log('Executing query : ' + query)
+	var result = conn.execute(query);
+	
+	console.log('RESULT: ' +result) ;
+
+	if(result && result.length > 0)
+		return result[0];
+
 	return null;
 }

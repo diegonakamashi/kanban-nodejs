@@ -1,10 +1,17 @@
-h1 Login
-form(action='/session', method='POST')
-  p
-    label(for='login') Login:
-    input(type='text', name='login', id='login')
-  p
-    label(for='password') Password:
-    input(type='password', name='password', id='password')
-  p
-    input(type='submit')
+html
+	head
+		script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js')
+		script(src='/js/3rd/md5-min.js')
+		script(src='/js/login/login.js')
+		link(rel='stylesheet', href='/stylesheets/style.css') 	
+		title= title
+	body
+		h1 Login
+		p
+			label(for='login') Login:
+			input(type='text', name='login_username', id='login_username')
+		p
+			label(for='password') Password:
+			input(type='password', name='login_password', id='login_password')
+		p
+			input(type='button', id='login_btn', value='Login')

@@ -2,7 +2,7 @@ var conn = require('./mysql-conn');
 
 
 module.exports.save = function(kanban){
-	conn.execute('INSERT INTO kanban SET USERNAME= ' + kanban.title + ', DESCRIPTION = ' + kanban.description);
+	conn.execute('INSERT INTO kanban SET TITLE= ' + kanban.title + ', DESCRIPTION = ' + kanban.description);
 }
 
 
