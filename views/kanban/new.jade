@@ -1,10 +1,10 @@
 h1 Login                                                                                     
-form(action='/kanban/new', method='POST')
-	p
-		label(for='title') Title:
-		input(type='text', name='title', id='title')
-	p
-		label(for='description') Description:
-		input(type='text', name='description', id='description')
-	p
-		input(type='submit')
+	form(action='/kanban/new', method='POST')
+		p
+			label(for='kanban_title') Title:
+			input(type='text', name='kanban_title', id='kanban_title')
+		p
+			label(for='kanban_description') Description:
+			input(type='text', name='kanban_description', id='kanban_description')
+		p
+			input(type='submit')

@@ -19,8 +19,18 @@ module.exports.findByUserId = function(userId, callBack){
 	);
 }
 
-module.exports.create = function(kanban){
-	kanbans.push(kaban);
+module.exports.create = function(kanban, user, callback){
+	var kanbanQuery = 'INSERT INTO kanban SET title = \"' + kanban.title + '\", description = \"' + kanban.description + '\"';
+	
+	Step(
+		function executeKanbanQuery(){
+			conn.execute(kanbanQuery, this);
+		},
+		function callcallback(err, results){
+
+			callback(err, results);
+		}
+	);
 }
 
 

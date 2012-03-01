@@ -73,7 +73,7 @@ app.post('/session', function(req, res){
 app.get('/kanban', preFilter, function(req, res){
 	Step(
 		function findKanbanByUserId(){
-			kanbans.findByUserId(req.session.user.id, this);
+		kanbans.findByUserId(req.session.user.id, this);
 		},
 		function renderKanbanList(err, results){
 			console.log('ZZZZZZZZZZZZZZZZZZZZZZz');
@@ -93,6 +93,21 @@ app.get('/kanban/new', preFilter, function(req, res){
 
 app.post('/kanban/new', preFilter, function(req, res){
 	var kanban = new Object();
+	kanban.title = req.body.kanban_title;
+	kanban.description = req.body.kanban_description;
+	
+	Step(
+		function saveKanban(){
+			kanbans.create(kanban, req.session.user, this);
+		},
+		function redirectToKanbanList(err, result){
+			if(err)
+				throw err;
+
+			res.redirect('/kanban');	
+		}
+	);
+
 	
 });
 
