@@ -46,15 +46,17 @@ app.get('/login', function(req, res){
 });
 
 app.post('/session', function(req, res){
-	console.log('Searching user : ' + req.body.username + '\n');
+	console.log('Searching user : ' + req.body.login_username + ' ' + req.body.login_hashpassword + '\n');
 	Step(
 		function findUser(){
-			users.findByUsername(req.body.username, this);
+			users.findByUsername(req.body.login_username, this);
 		},
 		function comparePassword(err, results){
 			if(results.length > 0){
 				var user = results[0];
-				if(user  && req.body.password == user.password){
+				
+
+				if(user  && req.body.login_hashpassword == user.password){
 					req.session.user = user;
 					res.redirect('/kanban');
 				}else{
