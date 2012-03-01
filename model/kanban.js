@@ -1,5 +1,6 @@
 var conn = require('./mysql-conn');
 var Step = require('step');
+var Util = require('util');
 
 
 module.exports.save = function(kanban){
@@ -21,13 +22,16 @@ module.exports.findByUserId = function(userId, callBack){
 
 module.exports.create = function(kanban, user, callback){
 	var kanbanQuery = 'INSERT INTO kanban SET title = \"' + kanban.title + '\", description = \"' + kanban.description + '\"';
-	
+
 	Step(
 		function executeKanbanQuery(){
 			conn.execute(kanbanQuery, this);
 		},
+		function insertUserKanban(err, results){
+			var query = 'INSERT INTO user_kanban SET user_id = ' + user.id + ', kanban_id = ' + results.insertId;
+			conn.execute(query, this);
+		},
 		function callcallback(err, results){
-
 			callback(err, results);
 		}
 	);

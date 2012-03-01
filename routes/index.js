@@ -1,7 +1,7 @@
 
 var Step = require('step');
+var kanbanController = require('../controller/kanbanController');
 var users = require('../model/user');
-var kanbans = require('../model/kanban');
 
 module.exports.routes = function(app){
 // Routes
@@ -40,51 +40,29 @@ app.post('/session', function(req, res){
 	)
 });
 
-app.get('/kanban', preFilter, function(req, res){
-	Step(
-		function findKanbanByUserId(){
-		kanbans.findByUserId(req.session.user.id, this);
-		},
-		function renderKanbanList(err, results){
-			res.render('kanban/list', {locals:{
-				title: 'Kanbans',
-				kanbans: results
-			}});
-		}
-	)
-});
+app.get('/kanban', preFilter, 
+	function(req, res){
+		kanbanController.renderList(req, res);
+	}
+);
 
-app.get('/kanban/new', preFilter, function(req, res){
-	res.render('kanban/new', {locals:{
-		title: 'New Kanban'
-	}});
-});
+app.get('/kanban/new', preFilter, 
+	function(req, res){
+		kanbanController.renderForm(req, res);
+	}
+);
 
-app.post('/kanban/new', preFilter, function(req, res){
-	var kanban = new Object();
-	kanban.title = req.body.kanban_title;
-	kanban.description = req.body.kanban_description;
-	
-	Step(
-		function saveKanban(){
-			kanbans.create(kanban, req.session.user, this);
-		},
-		function redirectToKanbanList(err, result){
-			if(err)
-				throw err;
+app.post('/kanban/new', preFilter, 
+	function(req, res){
+		kanbanController.create(req, res);
+	}
+);
 
-			res.redirect('/kanban');	
-		}
-	);
-
-	
-});
-
-app.get('/kanban/:id', preFilter, function(req, res){
-	var kanban = kanbans.findById(req.params.id);
-
-
-});
+app.get('/kanban/:id', preFilter, 
+	function(req, res){
+		//TODO
+	}
+);
 
 function preFilter(req, res, next){
 	isLogged(req, res, next);
