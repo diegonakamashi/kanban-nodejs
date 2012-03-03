@@ -58,11 +58,16 @@ app.post('/kanban/new', preFilter,
 	}
 );
 
-app.get('/kanban/:id', preFilter, 
+app.get('/kanban/:id', preFilter, 	
 	function(req, res){
-		//TODO
+		kanbanController.show(req, res);
 	}
 );
+
+app.get('/kanban/:id/content', preFilter,
+	function(req, res){
+		kanbanController.content(req, res);
+	});
 
 function preFilter(req, res, next){
 	isLogged(req, res, next);

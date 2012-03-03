@@ -9,7 +9,19 @@ module.exports.save = function(kanban){
 
 
 module.exports.findByUserId = function(userId, callBack){
-	var query = 'SELECT * FROM kanban k, user_kanban uk WHERE k.id = uk.kanban_id AND uk.user_id = ' + userId;
+	var query = 'SELECT k.* FROM kanban k, user_kanban uk WHERE k.id = uk.kanban_id AND uk.user_id = ' + userId;
+	Step(
+		function executeQuery(){
+			conn.execute(query, this);
+		},
+		function callCallback(err, results){
+			callBack(err, results);
+		}
+	);
+}
+
+module.exports.findById = function(id, callBack){
+	var query = 'SELECT k.* FROM kanban k WHERE k.id = ' + id;
 	Step(
 		function executeQuery(){
 			conn.execute(query, this);
@@ -36,5 +48,3 @@ module.exports.create = function(kanban, user, callback){
 		}
 	);
 }
-
-
