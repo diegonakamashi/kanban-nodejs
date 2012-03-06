@@ -1,0 +1,17 @@
+body{
+	width: 800px;
+	height: 400px;
+}
+
+.post-it{
+	width: 100px;
+	height: 100px;
+	border: solid
+}
+.spot{
+	height: 400px;
+	position:relative;
+	float:left;
+	width: 33%;
+}
+

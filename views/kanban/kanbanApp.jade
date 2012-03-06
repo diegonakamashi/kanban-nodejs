@@ -1,12 +1,30 @@
 html
 	head
+		link(rel='stylesheet', href='/stylesheets/kanban/kanban.css')
 		script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.js')
 		script(src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.10/jquery-ui.js')
+		script(src='/js/model/AddFunctions.js')
+		script(src='/js/model/kanban.js')	
+		script(src='/js/model/spot.js')
+		script(src='/js/model/postit.js')
 		script
 			$(function(){
 				alert('teste');
 				$.get('/kanban/#{kanbanId}/content', function(data){
 					alert(data);
+					count = 0;
+					var kanban = new Kanban();
+					var parados = new Spot("Parados");
+					var executando = new Spot("Executando");
+					var finalizados = new Spot("Finalizados");
+					var postIt1 = new PostIt('one', "Text1");
+					var postIt2 = new PostIt('two', "Text2");
+					parados.addPostIt(postIt1);
+					parados.addPostIt(postIt2);
+					kanban.addSpot(parados);
+					kanban.addSpot(executando);
+					kanban.addSpot(finalizados);
+					kanban.build("local"); 
 				})
 			});
 	body
