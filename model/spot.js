@@ -4,7 +4,7 @@ var Util = require('util');
 
 module.exports.save = function(spot, callback)
 {
-	var query = 'INSERT INTO spot SET TITLE = ' + spot.title + ', DESCRIPTION = ' + spot.description + ',KANBAN_ID = ' + spot.kanban_id;
+	var query = 'INSERT INTO spot SET TITLE = \"' + spot.title + '\", DESCRIPTION = \"' + spot.description + '\",KANBAN_ID = ' + spot.kanbanId;
 	Step(
 		function execQuery(){
 			conn.execute(query, this);

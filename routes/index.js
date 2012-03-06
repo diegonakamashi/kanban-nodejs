@@ -1,6 +1,7 @@
 
 var Step = require('step');
 var kanbanController = require('../controller/kanbanController');
+var spotController = require('../controller/spotController');
 var users = require('../model/user');
 
 module.exports.routes = function(app){
@@ -67,7 +68,13 @@ app.get('/kanban/:id', preFilter,
 app.get('/kanban/:id/content', preFilter,
 	function(req, res){
 		kanbanController.content(req, res);
-	});
+});
+
+app.post('/spot/new', preFilter,
+	function(req, res){
+		spotController.create(req, res);
+	}
+);
 
 function preFilter(req, res, next){
 	isLogged(req, res, next);
