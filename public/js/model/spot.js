@@ -1,5 +1,5 @@
 var SPOT_CLASS = 'spot';
-function Spot(label)
+function Spot(id, label)
 {
 	if (! (this instanceof arguments.callee)) {
     	return new arguments.callee(arguments);
@@ -7,12 +7,18 @@ function Spot(label)
 
     var self = this;
   	var _label = label;
+  	var _id = id;
   	var _postIts = [];
   	
   	self.getLabel = function(){
   	    var self = this;
         return _label;
     };
+
+    self.getId = function(){
+    	var self = this;
+    	return _id;
+    }
     
     self.getHtml = function(){
         var self = this;

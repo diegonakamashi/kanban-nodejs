@@ -9,33 +9,61 @@ html
 		script(src='/js/model/postit.js')
 		script
 			$(function(){
-				alert('teste');
 				$.get('/kanban/#{kanbanId}/content', function(data){
 					var resp = JSON.parse(data);
 					count = 0;
 					var kanban = new Kanban();
 					var spots = resp.spots;
+					var postits = resp.pits;
 					for(var i = 0; i < spots.length; i++){
-						var spot = new Spot(spots[i].title);
-						kanban.addSpot(spot);
+						var spot = new Spot(spots[i].id, spots[i].title);
+						
+						var spotPostIts = postits[spot.getId()];
+						if(spotPostIts){
+							for(var i = 0; i < spotPostIts.length; i++){
+								var pit = spotPostIts[i];
+								var postIt = new PostIt(pit.id, pit.text);
+								spot.addPostIt(postIt);
+							}		
+						}
+
+						kanban.addSpot(spot);						
+
+						$('#new_postit_spot').append($('<option>', { value : spots[i].id }).text(spots[i].title));
 					}
+
+					
 
 					kanban.build("local"); 
 					$('#new_spot_kanbanId').val(#{kanbanId});
+					$('#new_postit_kanbanId').val(#{kanbanId});
 				})
 			});
 	body
 		div(id='local')
-		form(method='POST', action='/spot/new', name='new_spot_form')
-			p
-				label(for='new_spot_title_label') Title:
-				input(type='text', name='new_spot_title', id='new_spot_title')
-			p
-				label(for='new_spot_description_label') Description:
-				input(type='text', name='new_spot_description', id='new_spot_description')
-				input(type='hidden', id='new_spot_kanbanId', name='new_spot_kanbanId', value='')
-			p
-				input(type='submit', id='new_spot_submit', value='New Spot')
+		div(id='new_spot_div')
+			form(method='POST', action='/spot/new', name='new_spot_form')
+				p
+					label(for='new_spot_title_label') Title:
+					input(type='text', name='new_spot_title', id='new_spot_title')
+				p
+					label(for='new_spot_description_label') Description:
+					input(type='text', name='new_spot_description', id='new_spot_description')
+					input(type='hidden', id='new_spot_kanbanId', name='new_spot_kanbanId', value='')
+				p
+					input(type='submit', id='new_spot_submit', value='New Spot')
+		div(id='new_postit_div')
+			form(method='POST', action='/postit/new', name='new_postit_form')
+				p
+					label(for='new_postit_text_label') Title:
+					input(type='text', name='new_postit_text', id='new_postit_text')
+				p
+					label(for='new_postit_spot_label') Spot:
+					select(name='new_postit_spot', id='new_postit_spot')
+					input(type='hidden', id='new_postit_kanbanId', name='new_postit_kanbanId', value='')
+
+				p
+					input(type='submit', id='new_spot_submit', value='New Spot')
 
 		
 

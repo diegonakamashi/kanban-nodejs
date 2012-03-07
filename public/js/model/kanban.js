@@ -1,6 +1,6 @@
 var FAYEPATH_SEND='/faye_channel'
 var FAYEPATH_UPDATE='/faye_channel_update'
-var FAYE_ADDRESS = '192.168.191.196:3000';
+var FAYE_ADDRESS = '192.168.0.121:3000';
 var FAYE_CLIENT='http://'+FAYE_ADDRESS+'/faye'
 var SEND_POSTIT_POSITION_INTERVAL = 500;
 
@@ -49,11 +49,22 @@ function Kanban(){
     };
 
     //Returns a Spot Object
-    self.getSpot = function(spotName){
+    self.getSpotByName = function(spotName){
         var self = this;
         var kanbanSpot = null;
         spotList.each(function(spot){
             if(spot.getLabel() == spotName)
+                kanbanSpot = spot;
+        });
+        
+        return kanbanSpot;
+    }
+    
+    self.getSpotById = function(spotId){
+        var self = this;
+        var kanbanSpot = null;
+        spotList.each(function(spot){
+            if(spot.getId() == spotId)
                 kanbanSpot = spot;
         });
         

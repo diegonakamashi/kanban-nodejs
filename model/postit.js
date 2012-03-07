@@ -1,8 +1,9 @@
 var Step = require('step');
 var Util = require('util');
+var conn = require('./mysql-conn');
 
 module.exports.save = function(postit, callback){
-	var query = 'INSERT INTO post_it pi SET pi.text = ' + postit.text + ', pi.spot_id = ' + pi.spot_id;
+	var query = 'INSERT INTO post_it SET text = \"' + postit.text + '\", spot_id = ' + postit.spotId;
 	
 	Step(
 		function execQuery(){

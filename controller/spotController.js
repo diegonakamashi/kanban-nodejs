@@ -16,7 +16,7 @@ module.exports.create = function(req, res){
 			spots.save(spot, this);
 		},
 		function redirectToKanban(err, result){
-			res.redirect('/kanban/'+spot.kanbanId+'/content');
+			res.redirect('/kanban/'+spot.kanbanId);
 		}
 	);
 }
