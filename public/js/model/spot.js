@@ -22,11 +22,17 @@ function Spot(id, label)
     
     self.getHtml = function(){
         var self = this;
-        var html = ''+            
+        var html = '' +
+        		'<fieldset class="'+SPOT_CLASS+'" id="'+_label+'">'+
+        			'<legend>'+_label+'</legend>'+
+        			self.getPostItsHtml()+
+        		'</fieldset>';
+        /*var html = ''+            
                 '<h3 class="ui-widget-header">'+_label+'</h3>'+
                 '<div class="'+SPOT_CLASS+'" id="'+_label+'">'+
                     self.getPostItsHtml() +
                 '</div>';            
+        */        
         return html;
     };
     

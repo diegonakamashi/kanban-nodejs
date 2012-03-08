@@ -20,8 +20,8 @@ html
 						
 						var spotPostIts = postits[spot.getId()];
 						if(spotPostIts){
-							for(var i = 0; i < spotPostIts.length; i++){
-								var pit = spotPostIts[i];
+							for(var j = 0; j < spotPostIts.length; j++){
+								var pit = spotPostIts[j];
 								var postIt = new PostIt(pit.id, pit.text);
 								spot.addPostIt(postIt);
 							}		
