@@ -1,6 +1,6 @@
 var FAYEPATH_SEND='/faye_channel'
 var FAYEPATH_UPDATE='/faye_channel_update'
-var FAYE_ADDRESS = '192.168.0.121:3000';
+var FAYE_ADDRESS = '192.168.191.196:3000';
 var FAYE_CLIENT='http://'+FAYE_ADDRESS+'/faye'
 var SEND_POSTIT_POSITION_INTERVAL = 500;
 

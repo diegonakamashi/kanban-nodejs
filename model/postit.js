@@ -22,6 +22,10 @@ module.exports.findBySpots = function(spots, callback){
 		spots_id = spots_id + separator + spots[i].id;
 	}	
 
+	//TODO Retirar GAMBI
+	if(spots_id.length == 0)
+		spots_id='-100';
+
 	var query = 'SELECT pi.* FROM post_it pi WHERE pi.spot_id in (' + spots_id + ')';
 
 	Step(
@@ -31,10 +35,11 @@ module.exports.findBySpots = function(spots, callback){
 		function separatePostIt(err, postIts){
 			var map = {};
 			for(var i = 0; i < postIts.length; i++){
-				var array = map[postIts[i].id];
+				console.log("Spot_id" + postIts[i].spot_id);
+				var array = map[postIts[i].spot_id];
 				if(!array){					
 					array = new Array();
-					map[postIts[i].id] = array;
+					map[postIts[i].spot_id] = array;
 				}
 				array.push(postIts[i]);
 			}

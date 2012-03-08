@@ -30,9 +30,7 @@ html
 						kanban.addSpot(spot);						
 
 						$('#new_postit_spot').append($('<option>', { value : spots[i].id }).text(spots[i].title));
-					}
-
-					
+					}					
 
 					kanban.build("local"); 
 					$('#new_spot_kanbanId').val(#{kanbanId});
@@ -63,7 +61,7 @@ html
 					input(type='hidden', id='new_postit_kanbanId', name='new_postit_kanbanId', value='')
 
 				p
-					input(type='submit', id='new_spot_submit', value='New Spot')
+					input(type='submit', id='new_spot_submit', value='New Postit')
 
 		
 
