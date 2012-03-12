@@ -37,4 +37,11 @@ function PostIt(id, txt)
       var text = 'Post-it ' + _id + '\n';
       return text;
     }
+
+    self.getContent = function(){
+    	var self = this;
+    	var pit = new Object();
+    	pit.id = self.getId();
+    	return pit;
+    }
 }

@@ -80,5 +80,12 @@ module.exports.show = function(req, res){
 		title: 'Kanban',
 		kanbanId: req.params.id
 	}});
+}
 
+module.exports.saveContent = function(req, res){
+	var kanban = req.body;
+	
+	
+
+	console.log(Util.inspect(kanban));
 }

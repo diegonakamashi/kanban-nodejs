@@ -12,7 +12,7 @@ html
 				$.get('/kanban/#{kanbanId}/content', function(data){
 					var resp = JSON.parse(data);
 					count = 0;
-					var kanban = new Kanban();
+					kanban = new Kanban(#{kanbanId});
 					var spots = resp.spots;
 					var postits = resp.pits;
 					for(var i = 0; i < spots.length; i++){

@@ -5,7 +5,7 @@ var FAYE_CLIENT='http://'+FAYE_ADDRESS+'/faye'
 var SEND_POSTIT_POSITION_INTERVAL = 500;
 
 
-function Kanban(){
+function Kanban(id){
 	if (! (this instanceof arguments.callee)) {
     	return new arguments.callee(arguments);
   	}
@@ -14,6 +14,8 @@ function Kanban(){
   	var movingPostit; //Postit que esta sendo movido
   	var fayeClient;
   	
+	var _id = id;
+
   	//Add a Spot to the Kanban
   	self.addSpot = function(spot) {
 	    var self = this;
@@ -104,6 +106,8 @@ function Kanban(){
 						    self.movePostId(message.postit, message.x, message.y);
 				    }else if(message.type == 'drop'){				
 				        self.onDropPostIt(message.p_id, message.newSpot);			
+				    }else if(message.type == 'update'){
+				    	
 				    }
 			    }); 	
 		}
@@ -183,7 +187,25 @@ function Kanban(){
     		text += '\n';
     	});    	
     	return text;
+    };
+
+	self.getContent = function(){
+		var self = this;
+		var kanban = new Object();
+		kanban.id = _id;
+		kanban.spots = new Array();
+
+		spotList.each(function(spot){
+			kanban.spots.push(spot.getContent());
+		});
+
+		return kanban;
+	}
+
+    self.save = function(){
+		$.post('/kanban/'+_id+'/content/save', self.getContent(), function(data){
+			
+		});
     }
-      
 }
 

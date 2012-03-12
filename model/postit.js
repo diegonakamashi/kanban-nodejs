@@ -49,3 +49,25 @@ module.exports.findBySpots = function(spots, callback){
 
 }
 
+module.exports.updatePostItsSpot = function(postits, spot_id, callback){
+	var ids = '';
+	for(var i = 0; i < postits.length; i++){
+		var separator = i == 0 ? '' : ', ';
+		ids = ids + separator + postits[i].id;
+	}
+	
+	//TODO GAMBI
+	if(ids.length == 0)
+		ids = '-100';
+
+	var query = 'UPDATE postit p SET p.spot_id = ' + spot_id + ' WHERE p.id in (' + ids + ')'; 
+	Step(
+		function executeQuery(){
+			conn.execute(query, this);
+		},
+		function callcallback(err, result){
+			callback(err, result);
+		}
+	);
+}
+

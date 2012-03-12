@@ -66,6 +66,12 @@ app.get('/kanban/:id', preFilter,
 	}
 );
 
+app.post('/kanban/:id/content/save', preFilter,
+	function(req, res){
+		kanbanController.saveContent(req, res);
+	}
+);
+
 app.get('/kanban/:id/content', preFilter,
 	function(req, res){
 		kanbanController.content(req, res);
