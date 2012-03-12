@@ -2,7 +2,7 @@ var mysql = require('mysql');
 var DATABASE = 'kanban_node';
 var client = mysql.createClient({
 	user: 'root',
-	password: 'root',
+	password: '',
 });
 
 client.query('USE ' + DATABASE);

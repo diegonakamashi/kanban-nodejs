@@ -4,6 +4,7 @@ var kanbanController = require('../controller/kanbanController');
 var spotController = require('../controller/spotController');
 var postitController = require('../controller/postitController');
 var users = require('../model/user');
+var Util = require('util');
 
 module.exports.routes = function(app){
 // Routes
@@ -76,6 +77,12 @@ app.get('/kanban/:id/content', preFilter,
 	function(req, res){
 		kanbanController.content(req, res);
 });
+
+app.post('/kanban/:id/content', preFilter, 
+	function(req, res){
+		console.log(Util.inspect(req));
+	}
+);
 
 app.post('/spot/new', preFilter,
 	function(req, res){

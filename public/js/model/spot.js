@@ -90,15 +90,15 @@ function Spot(id, label)
         return text;
     }
 
-    self.getContent = function(){
+    self.getContentToSave = function(){
     	var self = this;
     	var spot = new Object();
     	spot.id = self.getId();
-		spot.postIts = new Array();
-
-		_postIts.each(function(pit){
-			spot.postIts.push(pit.getContent());
-		});
-		return spot;
+    	spot.postits = new Array();
+		var index = 0;
+    	_postIts.each(function(pit){
+    		spot.postits[index++] = pit.getContentToSave();
+    	});
+    	return spot;
     }
 }

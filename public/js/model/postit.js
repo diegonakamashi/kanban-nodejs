@@ -38,10 +38,10 @@ function PostIt(id, txt)
       return text;
     }
 
-    self.getContent = function(){
+    self.getContentToSave = function(){
     	var self = this;
     	var pit = new Object();
     	pit.id = self.getId();
     	return pit;
-    }
+    };
 }
