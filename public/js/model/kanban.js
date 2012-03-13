@@ -174,7 +174,7 @@ function Kanban(id){
         var postItElem = $('#'+id);
         var postItObj = self.getPostIt(id);
 	    var newSpotHtml = $('#'+newSpotId);
-        var newSpotObj = self.getSpot(newSpotId);
+        var newSpotObj = self.getSpotByName(newSpotId);
         var oldSpotObj = postItObj.getSpot();//?	
         
 	    postItElem.removeAttr("style");
@@ -224,7 +224,9 @@ function Kanban(id){
 		});
 
 		$.post('/kanban/'+self.getId()+'/content', kanban, function(data){
-			alert(data)
+			if(data){
+				window.location ='/kanban/'+self.getId();
+			}
 		});
 	}
 }

@@ -67,12 +67,6 @@ app.get('/kanban/:id', preFilter,
 	}
 );
 
-app.post('/kanban/:id/content/save', preFilter,
-	function(req, res){
-		kanbanController.saveContent(req, res);
-	}
-);
-
 app.get('/kanban/:id/content', preFilter,
 	function(req, res){
 		kanbanController.content(req, res);
@@ -80,7 +74,7 @@ app.get('/kanban/:id/content', preFilter,
 
 app.post('/kanban/:id/content', preFilter, 
 	function(req, res){
-		console.log(Util.inspect(req));
+		kanbanController.saveContent(req, res);
 	}
 );
 

@@ -60,7 +60,7 @@ module.exports.updatePostItsSpot = function(postits, spot_id, callback){
 	if(ids.length == 0)
 		ids = '-100';
 
-	var query = 'UPDATE postit p SET p.spot_id = ' + spot_id + ' WHERE p.id in (' + ids + ')'; 
+	var query = 'UPDATE post_it p SET p.spot_id = ' + spot_id + ' WHERE p.id in (' + ids + ')'; 
 	Step(
 		function executeQuery(){
 			conn.execute(query, this);

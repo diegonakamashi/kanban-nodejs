@@ -83,9 +83,24 @@ module.exports.show = function(req, res){
 }
 
 module.exports.saveContent = function(req, res){
-	var kanban = req.body;
-	
-	
+	Step(
+		function updatePostIts(){
+			var kanban = req.body;
+			console.log('KANBAN: ' + kanban);
+			var spots = kanban.spots;
+			for(var i = 0; i < spots.length; i++){
+				var spot = spots[i];
+				var pits = spot.postits;
+				postits.updatePostItsSpot(pits, spot.id, this);		
+			}
+		},
+		function showKanban(){
+			res.render('kanban/kanbanApp', {locals:{
+			title: 'Kanban',
+			kanbanId: req.params.id
+	}});
 
-	console.log(Util.inspect(kanban));
+		}
+	);
+
 }
