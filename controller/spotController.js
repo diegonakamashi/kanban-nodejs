@@ -16,8 +16,14 @@ module.exports.create = function(req, res){
 			spots.save(spot, this);
 		},
 		function redirectToKanban(err, result){
-			res.redirect('/kanban/'+spot.kanbanId);
+			res.render('kanban/kanbanApp', {
+				locals:{
+					title: 'Kanban',
+					kanbanId: spot.kanbanId,
+					error:  err
+				}}			
+			);
 		}
-	);
+	)
 }
 

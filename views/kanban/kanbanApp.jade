@@ -38,6 +38,9 @@ html
 				})
 			});
 	body
+		-if(typeof(error)){
+			!= "p Testando"
+		}
 		div(id='local')
 		div(id='new_spot_div')
 			form(method='POST', action='/spot/new', name='new_spot_form')

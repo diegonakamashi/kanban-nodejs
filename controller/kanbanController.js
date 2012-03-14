@@ -97,7 +97,8 @@ module.exports.saveContent = function(req, res){
 		function showKanban(){
 			res.render('kanban/kanbanApp', {locals:{
 			title: 'Kanban',
-			kanbanId: req.params.id
+			kanbanId: req.params.id,
+			error: ''
 	}});
 
 		}
