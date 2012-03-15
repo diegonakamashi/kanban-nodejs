@@ -76,10 +76,10 @@ module.exports.content = function(req, res){
 }
 
 module.exports.show = function(req, res){
-	res.render('kanban/kanbanApp', {locals:{
+	res.render('kanban/kanbanApp', {
 		title: 'Kanban',
 		kanbanId: req.params.id
-	}});
+	});
 }
 
 module.exports.saveContent = function(req, res){
@@ -95,11 +95,11 @@ module.exports.saveContent = function(req, res){
 			}
 		},
 		function showKanban(){
-			res.render('kanban/kanbanApp', {locals:{
+			res.render('kanban/kanbanApp', {
 			title: 'Kanban',
 			kanbanId: req.params.id,
-			error: ''
-	}});
+			save_error: ''
+	});
 
 		}
 	);

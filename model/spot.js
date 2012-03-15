@@ -17,7 +17,7 @@ module.exports.save = function(spot, callback)
 			{
 				var err = new Object();
 				err.type = 'DUPLICATED';
-				err.message = 'Spot already exisit',
+				err.msg = 'Spot already exisit',
 				callback(err, count);
 			}
 			else
