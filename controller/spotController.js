@@ -20,7 +20,7 @@ module.exports.create = function(req, res){
 				locals:{
 					title: 'Kanban',
 					kanbanId: spot.kanbanId,
-					save_error:  err.msg
+					save_error:  err ? err.msg : ''
 				}}			
 			);
 		}
