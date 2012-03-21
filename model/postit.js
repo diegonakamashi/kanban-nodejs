@@ -15,6 +15,54 @@ module.exports.save = function(postit, callback){
 	);
 }
 
+module.exports.findById = function(id, callback){
+	var query = "SELECT * from post_it WHERE id = " + id;
+	Step(
+		function executeQuery(){
+			conn.execute(query, this);
+		},
+		function callcallback(err, result){
+			callback(err, result);
+		}
+	);
+}
+
+module.exports.deleteById = function(id, callback){
+	var query = "DELETE from post_it WHERE id = " + id;
+	Step(
+		function executeQuery(){
+			conn.execute(query, this);
+		},
+		function callcallback(err, result){
+			callback(err, result);
+		}
+	);
+}
+
+module.exports.update = function(postit, callback){
+	var query = "UPDATE post_it SET text = \""+postit.text+"\" WHERE id = " + postit.id;
+	Step(
+		function executeQuery(){
+			conn.execute(query, this);
+		},
+		function callcallback(err, result){
+			callback(err, result);
+		}
+	);
+}
+
+module.exports.findById = function(id, callback){
+	var query = "SELECT * from post_it WHERE id = " + id;
+	Step(
+		function executeQuery(){
+			conn.execute(query, this);
+		},
+		function callcallback(err, result){
+			callback(err, result);
+		}
+	);
+}
+
 module.exports.findBySpots = function(spots, callback){
 	var spots_id = '';
 	for(var i = 0; i < spots.length; i++){

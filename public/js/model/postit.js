@@ -29,7 +29,11 @@ function PostIt(id, txt)
     
     self.getHtml = function() {
         var self = this;
-        var html = '<div id="'+_id+'" contenteditable="true" class="'+POSTIT_CLASS+'">'+_txt+'</div>';
+        var links = '<span>' +
+        				'<a href=/postit/'+self.getId()+'/edit>Edit</a>'+
+        				'<a href=/postit/'+self.getId()+'/delete>Delete</a>'+
+        			'</span>';
+        var html = '<div id="'+_id+'" class="'+POSTIT_CLASS+'">'+_txt +links+'</div>';
 	    return html;
     };
 
