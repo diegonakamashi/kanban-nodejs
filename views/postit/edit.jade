@@ -1,0 +1,6 @@
+h1=title                                                                                     
+	form(action='/postit/#{postIt.id}/update', method='POST')
+		p
+			label(for='postit_txt') Text:
+			input(type='text', name='postit_txt', id='postit_txt', value='#{postIt.text}')
+			input(type='submit')
