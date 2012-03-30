@@ -4,6 +4,7 @@ html
 		script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.js')
 		script(src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.10/jquery-ui.js')
 		script(src='/js/model/AddFunctions.js')
+		script(src='/js/html/kanbanHtml.js')
 		script(src='/js/model/kanban.js')	
 		script(src='/js/model/spot.js')
 		script(src='/js/model/postit.js')
@@ -37,6 +38,11 @@ html
 					$('#new_postit_kanbanId').val(#{kanbanId});
 				})
 			});
+
+			function deletePostIt(id){
+				var pit = kanban.getPostIt(id);
+				pit.del();
+			}
 	body
 		- if(typeof(save_error) != 'undefined')
 			!= save_error

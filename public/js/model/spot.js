@@ -8,6 +8,7 @@ function Spot(id, label)
     var self = this;
   	var _label = label;
   	var _id = id;
+  	var _kanban;
   	var _postIts = [];
   	
   	self.getLabel = function(){
@@ -18,6 +19,17 @@ function Spot(id, label)
     self.getId = function(){
     	var self = this;
     	return _id;
+    };
+
+    self.setKanban = function(kanban){
+    	var self = this;
+    	_kanban = kanban;
+    }
+
+    self.getKanban = function(){
+    	var self = this;
+    	return _kanban;
+
     }
     
     self.getHtml = function(){

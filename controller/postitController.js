@@ -22,6 +22,7 @@ module.exports.create = function(req, res){
 	);
 }
 
+/*
 module.exports.edit = function(req, res){
 	Step(		
 		function getPostIt(){
@@ -49,7 +50,16 @@ module.exports.update = function(req, res){
 		}
 	);
 }
+*/
 
 module.exports.del = function(req, res){
-	
+	Step(		
+		function getPostIt(){
+			postits.deleteById(req.params.id, this);
+		},
+		function renderEditPostit(err, result){
+			var response = {code: 'ok'};
+			res.send(response);
+		}
+	);
 }

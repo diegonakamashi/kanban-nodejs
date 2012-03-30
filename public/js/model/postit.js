@@ -30,10 +30,9 @@ function PostIt(id, txt)
     self.getHtml = function() {
         var self = this;
         var links = '<span>' +
-        				'<a href=/postit/'+self.getId()+'/edit>Edit</a>'+
-        				'<a href=/postit/'+self.getId()+'/delete>Delete</a>'+
+        				'<label onclick=\'deletePostIt('+self.getId()+');\'>Delete</label>'+
         			'</span>';
-        var html = '<div id="'+_id+'" class="'+POSTIT_CLASS+'">'+_txt +links+'</div>';
+        var html = '<div id="'+_id+'" class="'+POSTIT_CLASS+'" ;\" ><label>'+_txt+'</label>' +links+'</div>';
 	    return html;
     };
 
@@ -48,4 +47,13 @@ function PostIt(id, txt)
     	pit.id = self.getId();
     	return pit;
     };
+
+    self.del = function(){
+    	var self = this;
+    	$.post('/postit/'+self.getId()+'/delete', function(data) {
+    		var spot = self.getSpot();
+    		var kanban = spot.getKanban();
+ 			kanban.sendDeletePostItMsg(self.getId());
+   	    });
+    }
 }

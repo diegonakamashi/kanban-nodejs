@@ -90,6 +90,7 @@ app.post('/postit/new', preFilter,
 	}
 );
 
+/*
 app.get('/postit/:id/edit', preFilter,
 	function(req, res){
 		postitController.edit(req, res);
@@ -101,8 +102,9 @@ app.post('/postit/:id/update', preFilter,
 		postitController.update(req, res);
 	}
 );
+*/
 
-app.get('/postit/:id/delete', preFilter,
+app.post('/postit/:id/delete', preFilter,
 	function(req, res){
 		postitController.del(req, res);
 	}

@@ -1,6 +1,6 @@
 var FAYEPATH_SEND='/faye_channel'
 var FAYEPATH_UPDATE='/faye_channel_update'
-var FAYE_ADDRESS = '192.168.0.121:3000';
+var FAYE_ADDRESS = '192.168.191.196:3000';
 var FAYE_CLIENT='http://'+FAYE_ADDRESS+'/faye'
 var SEND_POSTIT_POSITION_INTERVAL = 500;
 
@@ -13,6 +13,7 @@ function Kanban(id){
   	var spotList = [];//Lista de Spots
   	var movingPostit; //Postit que esta sendo movido
   	var fayeClient;
+  	var kanbanHtml = new KanbanHtml(self);
   	var _id = id;
   	
 
@@ -27,8 +28,9 @@ function Kanban(id){
   	//Add a Spot to the Kanban
   	self.addSpot = function(spot) {
   		if(!spot)
-  			return;
+  			return;  		
 	    var self = this;
+	    spot.setKanban(self);
 	    spotList.push(spot);
     };
     
@@ -83,14 +85,22 @@ function Kanban(id){
         return kanbanSpot;
     }
 
+	self.sendDeletePostItMsg = function(id){
+		var self = this;
+		fayeClient.publish(FAYEPATH_SEND, {
+			type: 'delete_pit',
+			postitId: id
+		});
+	}
+
     //Send the postitPosition to the Node Server
     self.sendPostitPosition = function() {
 	    var self = this;
 	    var x = 0;
 	    var y = 0;
-	    if(movingPostit){
-     		$(document).mousemove(function(e){
-			    console.log("Send information");
+    	$(document).mousemove(function(e){
+    		if(movingPostit){
+			    console.log("Send information " + movingPostit);
 			    var p_it = $("#"+movingPostit);
 			    var position = p_it.offset();
 			    fayeClient.publish(FAYEPATH_SEND, {
@@ -99,8 +109,8 @@ function Kanban(id){
       				y: e.pageY,
       				postit: movingPostit
 			    });
-		    });
-	    }
+			}
+	    });
     };
 
     //Initialize the kanban.
@@ -113,11 +123,13 @@ function Kanban(id){
 				    console.log("Receive message");
 				    if(message.type == 'moving'){
 					    if(movingPostit != message.postit)
-						    self.movePostId(message.postit, message.x, message.y);
+						    kanbanHtml.movePostId(message.postit, message.x, message.y);
 				    }else if(message.type == 'drop'){				
-				        self.onDropPostIt(message.p_id, message.newSpot);			
+				        kanbanHtml.onDropPostIt(message.p_id, message.newSpot);			
 				    }else if(message.type == 'update'){
 				    	
+				    }else if(message.type == 'delete_pit'){
+				    	kanbanHtml.deletePostIt(message.postitId);
 				    }
 			    }); 	
 		}
@@ -132,7 +144,7 @@ function Kanban(id){
 				    movingPostit = this.id;				
 			    },
 			    stop: function(){
-				    movingPostit = null			
+				    movingPostit = undefined;
 			    },
 		    });
 		
@@ -142,7 +154,7 @@ function Kanban(id){
 			    accept: ":not(.ui-sortable-helper)",
 			    drop: function( event, ui ) {
 				    $( ui.draggable ).appendTo( this );		
-				    movingPostit = null;
+				    movingPostit = undefined;
 				    fayeClient.publish(FAYEPATH_SEND, {
 					    type: 'drop',
       					p_id: ui.draggable[0].id,
@@ -158,32 +170,7 @@ function Kanban(id){
 
 		    setInterval(self.sendPostitPosition.bind(self), SEND_POSTIT_POSITION_INTERVAL);
     }
-
-    //Move the postit in the page
-    self.movePostId = function(id, left, top) {	
-	    var coord = {
-		    left: left,
-		    top: top
-	    };
-		if('#'+id)
-	    	$('#'+id).offset(coord);
-    };
-
-    self.onDropPostIt = function(id, newSpotId) {	
-        var self = this;
-        var postItElem = $('#'+id);
-        var postItObj = self.getPostIt(id);
-	    var newSpotHtml = $('#'+newSpotId);
-        var newSpotObj = self.getSpotByName(newSpotId);
-        var oldSpotObj = postItObj.getSpot();//?	
-        
-	    postItElem.removeAttr("style");
-	    postItElem.appendTo(newSpotHtml);	
-
-	    newSpotObj.addPostIt(postItObj);
-	    oldSpotObj.removePostIt(postItObj);
-    };
-
+    
     self.addPostIt = function(id) {
 	    var self = this;
 	    self.postItList.push
@@ -211,8 +198,6 @@ function Kanban(id){
 
 		return kanban;
 	}
-
-   
 	
 	self.save = function(){
 		var self = this;

@@ -63,6 +63,18 @@ module.exports.findById = function(id, callback){
 	);
 }
 
+module.exports.deleteById = function(id, callback){
+	var query = "DELETE from post_it WHERE id = " + id;
+	Step(
+		function executeQuery(){
+			conn.execute(query, this);
+		},
+		function callcallback(err, result){
+			callback(err, result);
+		}
+	);
+}
+
 module.exports.findBySpots = function(spots, callback){
 	var spots_id = '';
 	for(var i = 0; i < spots.length; i++){
