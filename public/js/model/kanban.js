@@ -33,6 +33,24 @@ function Kanban(id){
 	    spot.setKanban(self);
 	    spotList.push(spot);
     };
+
+	self.removeSpot = function(spot){
+		if(!spot)
+			return;
+		var self = this;
+        var index = -1;
+        for(var i = 0; i < spotList.length; i++){
+            if(spot.getId() == spotList[i].getId())
+            {
+                index = i;
+                break;
+            }
+        }
+        
+        if(index >= 0)
+            spotList.splice(index, 1);
+
+	}
     
     //TODO -> Refactoring in this code
     self.getPostIt = function(id) {
@@ -93,6 +111,15 @@ function Kanban(id){
 		});
 	}
 
+	self.sendDeleteSpotMsg = function(id){
+		var self = this;
+		fayeClient.publish(FAYEPATH_SEND, {
+			type: 'delete_spot',
+			postitId: id
+		});
+	}
+
+
     //Send the postitPosition to the Node Server
     self.sendPostitPosition = function() {
 	    var self = this;
@@ -130,6 +157,8 @@ function Kanban(id){
 				    	
 				    }else if(message.type == 'delete_pit'){
 				    	kanbanHtml.deletePostIt(message.postitId);
+				    }else if(message.type == 'delete_spot'){
+				    	kanbanHtml.deleteSpot(message.postitId);
 				    }
 			    }); 	
 		}
@@ -213,6 +242,10 @@ function Kanban(id){
 				window.location ='/kanban/'+self.getId();
 			}
 		});
+	}
+
+	self.showErrorMsg = function(msg){
+		alert(msg);//TODO mostrar de forma menos preguiçosa e mais bonita
 	}
 }
 

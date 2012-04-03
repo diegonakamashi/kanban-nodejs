@@ -27,3 +27,17 @@ module.exports.create = function(req, res){
 	)
 }
 
+module.exports.del = function(req, res){
+	Step(		
+		function deletePostIts(){
+			postits.deletePostItsBySpot(req.params.id, this);
+		},
+		function deleteSpot(err, result){
+			spots.del(req.params.id, this);
+		},
+		function renderEditPostit(err, result){
+			var response = {code: 'ok'};
+			res.send(response);
+		}
+	);
+}

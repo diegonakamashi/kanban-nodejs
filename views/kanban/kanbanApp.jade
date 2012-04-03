@@ -43,6 +43,11 @@ html
 				var pit = kanban.getPostIt(id);
 				pit.del();
 			}
+
+			function deleteSpot(id){
+				var spot = kanban.getSpotById(id);
+				spot.del();
+			}
 	body
 		- if(typeof(save_error) != 'undefined')
 			!= save_error

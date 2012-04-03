@@ -37,14 +37,9 @@ function Spot(id, label)
         var html = '' +
         		'<fieldset class="'+SPOT_CLASS+'" id="'+_label+'">'+
         			'<legend>'+_label+'</legend>'+
+ 					'<label onclick=\'deleteSpot('+self.getId()+');\'>Delete</label>'+
         			self.getPostItsHtml()+
         		'</fieldset>';
-        /*var html = ''+            
-                '<h3 class="ui-widget-header">'+_label+'</h3>'+
-                '<div class="'+SPOT_CLASS+'" id="'+_label+'">'+
-                    self.getPostItsHtml() +
-                '</div>';            
-        */        
         return html;
     };
     
@@ -113,4 +108,13 @@ function Spot(id, label)
     	});
     	return spot;
     }
+
+	self.del = function(){
+		var self = this;
+    	$.post('/spot/'+self.getId()+'/delete', function(data) {    			
+    		var kanban = self.getKanban();
+	 		kanban.sendDeleteSpotMsg(self.getId());
+   	    });
+	
+   	}
 }

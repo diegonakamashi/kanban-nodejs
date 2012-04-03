@@ -40,3 +40,17 @@ module.exports.findByKanbanId = function(kanbanId, callback){
 		}
 	);
 }
+
+module.exports.del = function(id, callback){
+	var query = 'DELETE from spot WHERE id = ' + id;
+	Step(
+		function executeQuery(){
+			conn.execute(query, this);
+		},
+		function callcallback(err, result){
+			callback(err, result);
+		}
+	);
+
+
+}

@@ -110,6 +110,12 @@ app.post('/postit/:id/delete', preFilter,
 	}
 );
 
+app.post('/spot/:id/delete', preFilter,
+	function(req, res){
+		spotController.del(req, res);
+	}
+);
+
 function preFilter(req, res, next){
 	isLogged(req, res, next);
 }

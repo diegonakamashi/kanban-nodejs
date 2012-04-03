@@ -26,6 +26,7 @@ function KanbanHtml(_kanban){
 	    spotObj.removePostIt(postItObj);
 	   	$('#'+id).remove();
 	}
+
 	self.onDropPostIt = function(id, newSpotId) {	
         var self = this;
         var postItElem = $('#'+id);
@@ -41,8 +42,11 @@ function KanbanHtml(_kanban){
 	    oldSpotObj.removePostIt(postItObj);
     };
 
-    self.deleteSpot = function(){
-    	//TODO
+    self.deleteSpot = function(id){
+    	var self = this;
+    	var spotObj = kanban.getSpotById(id);
+		kanban.removeSpot(spotObj);
+		$('#'+spotObj.getLabel()).remove();
     }
 
     self.createSpot = function(){
