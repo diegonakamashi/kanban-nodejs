@@ -3,6 +3,10 @@ body{
 	height: 400px;
 }
 
+#new_spot_div, #new_postit_div{
+	display:none;
+}
+
 .post-it{
 	width: 100px;
 	height: 100px;

@@ -39,6 +39,14 @@ html
 				})
 			});
 
+			function openNewPostItDiv(){
+				$('#new_postit_div').toggle();
+			}
+			
+			function openNewSpotDiv(){
+				$('#new_spot_div').toggle();
+			}
+
 			function deletePostIt(id){
 				var pit = kanban.getPostIt(id);
 				pit.del();
@@ -48,34 +56,54 @@ html
 				var spot = kanban.getSpotById(id);
 				spot.del();
 			}
+
+			function newSpot(){
+				var title = $('#new_spot_title').val();
+				var description = $('#new_spot_description').val();
+				var kanbanId = $('#new_spot_kanbanId').val();
+				
+				var params = {
+					title : title,
+					description: description,
+					kanbanId: kanbanId
+				};
+
+				$.post('/spot/new', params, function(data) {
+					alert('teste');
+				});
+			}
+
+			function newPostit(){			
+			}
+
 	body
 		- if(typeof(save_error) != 'undefined')
 			!= save_error
 		
+		label(for='new_spot_label_open_div', onclick='openNewSpotDiv()') New Spot:
+		label(for='new_postit_label_open_div', onclick='openNewPostItDiv()') New Posit:
 		div(id='local')
-		div(id='new_spot_div')
-			form(method='POST', action='/spot/new', name='new_spot_form')
-				p
-					label(for='new_spot_title_label') Title:
-					input(type='text', name='new_spot_title', id='new_spot_title')
-				p
-					label(for='new_spot_description_label') Description:
-					input(type='text', name='new_spot_description', id='new_spot_description')
-					input(type='hidden', id='new_spot_kanbanId', name='new_spot_kanbanId', value='')
-				p
-					input(type='submit', id='new_spot_submit', value='New Spot')
-		div(id='new_postit_div')
-			form(method='POST', action='/postit/new', name='new_postit_form')
-				p
-					label(for='new_postit_text_label') Title:
-					input(type='text', name='new_postit_text', id='new_postit_text')
-				p
-					label(for='new_postit_spot_label') Spot:
-					select(name='new_postit_spot', id='new_postit_spot')
-					input(type='hidden', id='new_postit_kanbanId', name='new_postit_kanbanId', value='')
+		div(id='new_spot_div', class='popup')
+			p
+				label(for='new_spot_title_label') Title:
+				input(type='text', name='new_spot_title', id='new_spot_title')
+			p
+				label(for='new_spot_description_label') Description:
+				input(type='text', name='new_spot_description', id='new_spot_description')
+				input(type='hidden', id='new_spot_kanbanId', name='new_spot_kanbanId', value='')
+			p
+				input(type='button', id='new_spot_submit', value='New Spot', onclick='newSpot()')
+		div(id='new_postit_div', class='popup')
+			p
+				label(for='new_postit_text_label') Title:
+				input(type='text', name='new_postit_text', id='new_postit_text')
+			p
+				label(for='new_postit_spot_label') Spot:
+				select(name='new_postit_spot', id='new_postit_spot')
+				input(type='hidden', id='new_postit_kanbanId', name='new_postit_kanbanId', value='')
 
-				p
-					input(type='submit', id='new_spot_submit', value='New Postit')
+			p
+				input(type='button', id='new_spot_submit', value='New Postit', onclick='newPostit()')
 
 		div(id='kanban_save_div')
 			p

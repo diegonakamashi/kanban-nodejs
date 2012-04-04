@@ -6,10 +6,11 @@ var postits = require('../model/postit');
 var Util = require('util');
 
 module.exports.create = function(req, res){
+	console.log('CREATE SPOT ' + req);
 	var spot = new Object();
-	spot.title=req.body.new_spot_title;
-	spot.description=req.body.new_spot_description;
-	spot.kanbanId=req.body.new_spot_kanbanId;
+	spot.title=req.params.title;
+	spot.description=req.params.description;
+	spot.kanbanId=req.params.kanbanId;
 
 	Step(
 		function saveSpot(){
