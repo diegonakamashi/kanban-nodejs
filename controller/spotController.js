@@ -6,21 +6,23 @@ var postits = require('../model/postit');
 var Util = require('util');
 
 module.exports.create = function(req, res){
-	console.log('CREATE SPOT ' + req);
+	console.log('CREATE SPOT ' + Util.inspect(req));
 	var spot = new Object();
-	spot.title=req.params.title;
-	spot.description=req.params.description;
-	spot.kanbanId=req.params.kanbanId;
+	spot.title=req.body.title;
+	spot.description=req.body.description;
+	spot.kanbanId=req.body.kanbanId;
 
 	Step(
 		function saveSpot(){
 			spots.save(spot, this);
 		},
 		function redirectToKanban(err, result){
+			console.log("TESTE "+Util.inspect(result));
 			res.render('kanban/kanbanApp', {
 				locals:{
 					title: 'Kanban',
 					kanbanId: spot.kanbanId,
+					spotId: result.insertId,
 					save_error:  err ? err.msg : ''
 				}}			
 			);

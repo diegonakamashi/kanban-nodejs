@@ -1,6 +1,6 @@
 var FAYEPATH_SEND='/faye_channel'
 var FAYEPATH_UPDATE='/faye_channel_update'
-var FAYE_ADDRESS = '192.168.191.196:3000';
+var FAYE_ADDRESS = '192.168.191.228:3000';
 var FAYE_CLIENT='http://'+FAYE_ADDRESS+'/faye'
 var SEND_POSTIT_POSITION_INTERVAL = 500;
 
@@ -103,6 +103,14 @@ function Kanban(id){
         return kanbanSpot;
     }
 
+	self.sendNewSpotMsg = function(spot){
+		var self = this;
+		fayeClient.publish(FAYEPATH_SEND, {
+			type: 'new_spot',
+			spot: spot
+		});
+	}
+
 	self.sendDeletePostItMsg = function(id){
 		var self = this;
 		fayeClient.publish(FAYEPATH_SEND, {
@@ -159,7 +167,10 @@ function Kanban(id){
 				    	kanbanHtml.deletePostIt(message.postitId);
 				    }else if(message.type == 'delete_spot'){
 				    	kanbanHtml.deleteSpot(message.postitId);
+				    }else if(message.type == 'new_spot'){
+				    	kanbanHtml.newSpot(message.spot);
 				    }
+
 			    }); 	
 		}
 

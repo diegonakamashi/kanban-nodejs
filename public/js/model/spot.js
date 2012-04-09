@@ -114,7 +114,6 @@ function Spot(id, label)
     	$.post('/spot/'+self.getId()+'/delete', function(data) {    			
     		var kanban = self.getKanban();
 	 		kanban.sendDeleteSpotMsg(self.getId());
-   	    });
-	
+   	    });	
    	}
 }

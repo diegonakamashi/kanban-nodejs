@@ -4,6 +4,11 @@ function KanbanHtml(_kanban){
   	}
   	var self = this; 	
   	var kanban = _kanban;
+	
+	self.addHtml = function(html){
+    	$('#local').append(html);
+    }
+
 
 	self.movePostId = function(id, left, top) {	
 	    var coord = {
@@ -49,10 +54,14 @@ function KanbanHtml(_kanban){
 		$('#'+spotObj.getLabel()).remove();
     }
 
-    self.createSpot = function(){
-    	//TODO
+    self.newSpot = function(spot){
+    	var self = this;
+    	var spot = new Spot(spot.id, spot.title);
+		kanban.addSpot(spot);
+		self.addHtml(spot.getHtml());
     }
 
+    
 	
 
 }

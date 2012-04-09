@@ -69,7 +69,8 @@ html
 				};
 
 				$.post('/spot/new', params, function(data) {
-					alert('teste');
+					params.id  = data.spotId;
+					kanban.sendNewSpotMsg(params);
 				});
 			}
 
