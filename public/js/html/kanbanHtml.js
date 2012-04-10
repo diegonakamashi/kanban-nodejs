@@ -51,14 +51,16 @@ function KanbanHtml(_kanban){
     	var self = this;
     	var spotObj = kanban.getSpotById(id);
 		kanban.removeSpot(spotObj);
+		$('#new_postit_spot option[value='+id+']').remove();//Remove opção do select
 		$('#'+spotObj.getLabel()).remove();
     }
 
     self.newSpot = function(spot){
     	var self = this;
-    	var spot = new Spot(spot.id, spot.title);
-		kanban.addSpot(spot);
-		self.addHtml(spot.getHtml());
+		$("#new_postit_spot").append('<option value="'+spot.id+'">'+spot.title+'</option>');
+    	var spotObj = new Spot(spot.id, spot.title);
+		kanban.addSpot(spotObj);
+		self.addHtml(spotObj.getHtml());
     }
 
     
