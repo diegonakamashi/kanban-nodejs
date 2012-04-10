@@ -18,14 +18,13 @@ module.exports.create = function(req, res){
 		},
 		function redirectToKanban(err, result){
 			console.log("TESTE "+Util.inspect(result));
-			res.render('kanban/kanbanApp', {
-				locals:{
+			var response = {
 					title: 'Kanban',
 					kanbanId: spot.kanbanId,
 					spotId: result.insertId,
 					save_error:  err ? err.msg : ''
-				}}			
-			);
+			}
+			res.send(response);
 		}
 	)
 }

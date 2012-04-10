@@ -111,6 +111,14 @@ function Kanban(id){
 		});
 	}
 
+	self.sendNewPostItMsg = function(pit){
+		var self = this;
+		fayeClient.publish(FAYEPATH_SEND, {
+			type: 'new_postit',
+			postit: pit
+		});
+	}
+
 	self.sendDeletePostItMsg = function(id){
 		var self = this;
 		fayeClient.publish(FAYEPATH_SEND, {
@@ -169,6 +177,8 @@ function Kanban(id){
 				    	kanbanHtml.deleteSpot(message.postitId);
 				    }else if(message.type == 'new_spot'){
 				    	kanbanHtml.newSpot(message.spot);
+				    }else if(message.type == 'new_postit'){
+				    	kanbanHtml.newPostit(message.postit);
 				    }
 
 			    }); 	
@@ -211,11 +221,6 @@ function Kanban(id){
 		    setInterval(self.sendPostitPosition.bind(self), SEND_POSTIT_POSITION_INTERVAL);
     }
     
-    self.addPostIt = function(id) {
-	    var self = this;
-	    self.postItList.push
-    };
-
     self.getText = function(){
     	var text = 'Kanban\n';
     	spotList.each(function(spot){

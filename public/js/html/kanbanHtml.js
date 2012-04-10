@@ -63,8 +63,12 @@ function KanbanHtml(_kanban){
 		self.addHtml(spotObj.getHtml());
     }
 
-    
-	
-
+   self.newPostit = function(pit){
+   		var self = this;
+   		var pitObj = new PostIt(pit.postItId, pit.txt);
+   		var spot = kanban.getSpotById(pit.spotId);
+   		spot.addPostIt(pitObj);
+		$('#'+spot.getLabel()+'').append(pitObj.getHtml());
+   }
 }
 

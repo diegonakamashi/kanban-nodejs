@@ -7,17 +7,21 @@ var Util = require('util');
 
 module.exports.create = function(req, res){
 	var postit = new Object();
-	postit.text=req.body.new_postit_text;
-	postit.spotId=req.body.new_postit_spot;
+	postit.text=req.body.txt;
+	postit.spotId=req.body.spotId;
 
 	Step(
 		function savePostIt(){
 			postits.save(postit, this);
 		},
 		function redirectToKanban(err, result){
-			if(err)
-				throw err;
-			res.redirect('/kanban/'+req.body.new_postit_kanbanId);
+			var response = {
+					title: 'Kanban',
+					kanbanId: postit.kanbanId,
+					postItId: result.insertId,
+					save_error:  err ? err.msg : ''
+				}
+			res.send(response);
 		}
 	);
 }

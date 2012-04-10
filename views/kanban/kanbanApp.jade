@@ -75,6 +75,20 @@ html
 			}
 
 			function newPostit(){			
+				var txt = $('#new_postit_text').val();
+				var spotId = $('#new_postit_spot').val();
+				var kanbanId = $('#new_spot_kanbanId').val();
+
+				var params = {
+					txt: txt,
+					spotId: spotId,
+					kanbanId: kanbanId
+				}
+
+				$.post('/postit/new', params, function(data){
+					params.postItId = data.postItId;
+					kanban.sendNewPostItMsg(params);
+				});
 			}
 
 	body
