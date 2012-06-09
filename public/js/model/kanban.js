@@ -1,6 +1,6 @@
 var FAYEPATH_SEND='/faye_channel'
 var FAYEPATH_UPDATE='/faye_channel_update'
-var FAYE_ADDRESS = '192.168.191.228:3000';
+var FAYE_ADDRESS = '192.168.0.121:3000';
 var FAYE_CLIENT='http://'+FAYE_ADDRESS+'/faye'
 var SEND_POSTIT_POSITION_INTERVAL = 500;
 
@@ -159,6 +159,7 @@ function Kanban(id){
     //Initialize the kanban.
     self.init = function(){
 	    var self = this;	
+		self.addProperties();
 	    if(fayeClient == null)       
 	    {
 		    fayeClient = new Faye.Client(FAYE_CLIENT, {	timeout: 120 });
@@ -180,10 +181,15 @@ function Kanban(id){
 				    }else if(message.type == 'new_postit'){
 				    	kanbanHtml.newPostit(message.postit);
 				    }
-
-			    }); 	
+					
+			    });
 		}
 
+		    setInterval(self.sendPostitPosition.bind(self), SEND_POSTIT_POSITION_INTERVAL);
+    }
+
+    self.addProperties = function(){
+		var self = this; 
 	    $( ".post-it" ).draggable({
 			    appendTo: "body",
 			    helper: "clone",
@@ -216,9 +222,7 @@ function Kanban(id){
 			    sort: function() {
 				    $( this ).removeClass( "ui-state-default" );
 			    }
-		    });
-
-		    setInterval(self.sendPostitPosition.bind(self), SEND_POSTIT_POSITION_INTERVAL);
+		    });   
     }
     
     self.getText = function(){

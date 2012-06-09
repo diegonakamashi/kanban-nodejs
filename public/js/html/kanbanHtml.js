@@ -61,6 +61,7 @@ function KanbanHtml(_kanban){
     	var spotObj = new Spot(spot.id, spot.title);
 		kanban.addSpot(spotObj);
 		self.addHtml(spotObj.getHtml());
+		kanban.addProperties();
     }
 
    self.newPostit = function(pit){
@@ -69,6 +70,7 @@ function KanbanHtml(_kanban){
    		var spot = kanban.getSpotById(pit.spotId);
    		spot.addPostIt(pitObj);
 		$('#'+spot.getLabel()+'').append(pitObj.getHtml());
+		kanban.addProperties();
    }
 }
 
