@@ -184,7 +184,7 @@ function Kanban(id){
 					
 			    });
 		}
-
+			setTimeout(self.update.bind(self), 5000);
 		    setInterval(self.sendPostitPosition.bind(self), SEND_POSTIT_POSITION_INTERVAL);
     }
 
@@ -259,13 +259,20 @@ function Kanban(id){
 
 		$.post('/kanban/'+self.getId()+'/content', kanban, function(data){
 			if(data){
-				window.location ='/kanban/'+self.getId();
+		//		window.location ='/kanban/'+self.getId();
 			}
 		});
 	}
 
+	self.update = function(){
+		var self = this;
+		self.save();
+
+	}
+
 	self.showErrorMsg = function(msg){
 		alert(msg);//TODO mostrar de forma menos preguiçosa e mais bonita
+		document.location.reload();
 	}
 }
 

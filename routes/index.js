@@ -3,6 +3,8 @@ var Step = require('step');
 var kanbanController = require('../controller/kanbanController');
 var spotController = require('../controller/spotController');
 var postitController = require('../controller/postitController');
+var adminController = require('../controller/adminController');
+var userController = require('../controller/userController');
 var users = require('../model/user');
 var Util = require('util');
 
@@ -31,7 +33,10 @@ app.post('/session', function(req, res){
 
 				if(user  && req.body.login_hashpassword == user.password){
 					req.session.user = user;
-					res.redirect('/kanban');
+					if(user.role == 0)
+						res.redirect('/kanban');
+					else
+						res.redirect('/admin');
 				}else{
 					res.redirect('/login');
 				}
@@ -42,6 +47,18 @@ app.post('/session', function(req, res){
 		}
 	)
 });
+
+app.get('/admin', preFilter,
+	function(req, res){
+		adminController.renderIndex(req, res);
+	}
+);
+
+app.get('/users', preFilter,
+	function(req, res){
+		userController.renderList(req, res);
+	}
+);
 
 app.get('/kanban', preFilter, 
 	function(req, res){
