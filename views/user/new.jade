@@ -1,0 +1,15 @@
+h1=title                                                                                     
+	form(action='/user/new', method='POST')
+		p
+			label(for='user_username') Username:
+			input(type='text', name='user[username]', id='user_username')
+		p
+			label(for='user_password') Password:
+			input(type='password', name='user[password]', id='user_password')
+		p	
+			label(for='user_role') Role:
+			select
+				option 0
+				option 1
+		p
+			input(type='submit')

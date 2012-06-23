@@ -20,3 +20,8 @@ module.exports.renderList = function(req, res){
 	);
 }
 
+module.exports.renderForm = function(req, res){
+	res.render('user/new', {locals:{
+		title: 'New User'
+	}});
+}

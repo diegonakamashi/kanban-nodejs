@@ -60,6 +60,12 @@ app.get('/users', preFilter,
 	}
 );
 
+app.get('/user/new', preFilter,
+	function(req, res){
+		userController.renderForm(req, res);
+	}
+);
+
 app.get('/kanban', preFilter, 
 	function(req, res){
 		kanbanController.renderList(req, res);
