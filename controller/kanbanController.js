@@ -13,7 +13,8 @@ module.exports.renderList = function(req, res){
 		function renderKanbanList(err, results){
 			res.render('kanban/list', {locals:{
 				title: 'Kanbans',
-				kanbans: results
+				kanbans: results,
+				user: req.session.user
 			}});
 		}
 	);
