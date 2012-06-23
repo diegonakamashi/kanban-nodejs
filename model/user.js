@@ -29,4 +29,16 @@ module.exports.findByUsername = function(username, callback){
 	);
 }
 	
+module.exports.create = function(user, callback){
+	console.log(user);
+	var query = 'INSERT INTO user SET username = "' + user.username + '", password = "' + user.password + '", role = ' + user.role + ', name = "' + user.username + '"';
 
+	Step(
+		function executeQuery(){
+			conn.execute(query, this);
+		},
+		function callCallBack(err, results){
+			callback(err, results);
+		}
+	);
+}

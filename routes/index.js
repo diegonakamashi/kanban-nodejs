@@ -66,6 +66,12 @@ app.get('/user/new', preFilter,
 	}
 );
 
+app.post('/user/new', preFilter,
+	function(req, res){
+		userController.create(req, res);
+	}
+)
+
 app.get('/kanban', preFilter, 
 	function(req, res){
 		kanbanController.renderList(req, res);

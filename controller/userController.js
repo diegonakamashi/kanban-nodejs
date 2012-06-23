@@ -25,3 +25,17 @@ module.exports.renderForm = function(req, res){
 		title: 'New User'
 	}});
 }
+
+module.exports.create = function(req, res){
+	var user = req.body.user;
+	Step(
+		function saveUser(){
+			users.create(user, this);
+		},
+		function redirectToUserList(err, result){
+			if(err) throw err;
+
+			res.redirect('/users');
+		}
+	);
+}

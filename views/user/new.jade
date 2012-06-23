@@ -1,5 +1,14 @@
-h1=title                                                                                     
-	form(action='/user/new', method='POST')
+script(src='/js/3rd/md5-min.js')
+script(type='text/javascript')
+	function createUser(){
+		var pass = $('#user_password').val();
+		var hash = hex_md5(pass);
+		$('#user_password').val(hash);
+		document.createUserForm.submit();
+	}
+
+h1=title                                                                                     	
+	form(action='/user/new', method='POST', name='createUserForm')
 		p
 			label(for='user_username') Username:
 			input(type='text', name='user[username]', id='user_username')
@@ -8,8 +17,8 @@ h1=title
 			input(type='password', name='user[password]', id='user_password')
 		p	
 			label(for='user_role') Role:
-			select
+			select(name='user[role]')
 				option 0
 				option 1
 		p
-			input(type='submit')
+			input(type='button', value='Create!', onclick='createUser()')
