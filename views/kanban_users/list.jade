@@ -1,0 +1,23 @@
+script
+	function saveUsersKanban(){
+		var selected = []
+		$("input:checkbox[name=user]:checked").each(function() {
+			selected.push($(this).val());
+		});
+		var kanban = ();
+		kanban.id = #{kanbanId};
+		kanban.users = selected;
+		$.post('/kanban/#{kanbanId}/users', kanban,
+			function(data){
+				alert('Saved');
+			});
+		
+	}
+
+<h1>KanbanUsers
+
+ul#kanban_users_list!= partial('user', {collection: users});
+
+
+input(type='button', id='user_kanban_submit', value='Save', onclick='saveUsersKanban()')
+
