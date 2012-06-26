@@ -106,3 +106,37 @@ module.exports.saveContent = function(req, res){
 	);
 
 }
+
+module.exports.updateUsers = function(req, res){
+	Step(
+		var kanban = req.body;
+		function removeAllUsers(){
+			kanbans.removeAllUsers(kanban.id, this);
+		},
+		function relateUsers(err, result){
+			kanbans.relateUsers(kanban.id, kanban.users, this);
+		},
+		function redirect(){
+			res.redirect('kanban/'+kanban.id+'/users');
+		}
+
+	);
+}
+
+module.exports.getUsers = function(req, res){
+	var kanbanUsers = [];
+	Step(
+		function getKanbanUsers(){
+			users.getKanbanRelatedUsers(req.params.id, this);	
+		},
+		function getOtherUsers(err, result){
+			kanbanUsers = result;
+			console.log(result);
+			res.render('kanban_users/list',{
+				title: 'KanbanUsers',
+				users: kanbanUsers,
+				kanbanId: req.params.id
+			});
+		}
+	);
+}

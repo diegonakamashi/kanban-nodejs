@@ -43,3 +43,22 @@ module.exports.create = function(kanban, user, callback){
 		}
 	);
 }
+
+module.exports.removeAllUsers = function(id, callback){
+	var query = 'DELETE from user_kanban WHERE kanban_id = ' + id;
+	Step(
+		function executeQuery(){
+			conn.execute(query, this);
+		},
+		function callCallback(err, results){
+			callBack(err, results);
+		}
+	);
+}
+
+module.exports.relateUsers(id, users, callback){
+	var query = 'INSERT INTO user_kanban SET user_id = ' + user_id + ', kanban_id = '+ id;
+	Step(){
+		for(var i = 0; i +)
+	}
+}

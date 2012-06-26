@@ -96,6 +96,18 @@ app.get('/kanban/:id', preFilter,
 	}
 );
 
+app.get('/kanban/:id/users', preFilter,
+	function(req, res){
+		kanbanController.getUsers(req, res);
+	}
+);
+
+app.post('/kanban/:id/users', preFilter,
+	function(req, res){
+		kanbanController.updateUsers(req, res);
+	}
+);
+
 app.get('/kanban/:id/content', preFilter,
 	function(req, res){
 		kanbanController.content(req, res);

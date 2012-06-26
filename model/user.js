@@ -42,3 +42,29 @@ module.exports.create = function(user, callback){
 		}
 	);
 }
+
+module.exports.getByKanbanId = function(id, callback){
+	var query = 'SELECT * FROM user, user_kanban WHERE user.id = user_kanban.user_id AND user_kanban.kanban_id = ' + id;
+
+	Step(
+		function execQuery(){
+			conn.execute(query, this);
+		},
+		function callCallBack(err, results){
+			callback(err, results);
+		}
+	);
+}
+
+module.exports.getKanbanRelatedUsers = function(kanban_id, callback){
+	var query = 'SELECT u.id as id, u.username as username, u.role as role, uk.kanban_id as kanban_id, uk.user_id as user_id FROM user u  LEFT OUTER JOIN user_kanban uk ON u.id = uk.user_id and uk.kanban_id=' + kanban_id;
+	Step(
+		function execQuery(){
+			conn.execute(query, this);
+		},
+		function callCallBack(err, results){
+			callback(err, results);
+		}
+	);
+
+}
