@@ -108,8 +108,8 @@ module.exports.saveContent = function(req, res){
 }
 
 module.exports.updateUsers = function(req, res){
+	var kanban = req.body;
 	Step(
-		var kanban = req.body;
 		function removeAllUsers(){
 			kanbans.removeAllUsers(kanban.id, this);
 		},

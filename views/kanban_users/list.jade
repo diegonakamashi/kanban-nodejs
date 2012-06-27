@@ -1,10 +1,10 @@
 script
 	function saveUsersKanban(){
-		var selected = []
+		var selected = [];
 		$("input:checkbox[name=user]:checked").each(function() {
 			selected.push($(this).val());
 		});
-		var kanban = ();
+		var kanban = new Object();
 		kanban.id = #{kanbanId};
 		kanban.users = selected;
 		$.post('/kanban/#{kanbanId}/users', kanban,

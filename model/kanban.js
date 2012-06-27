@@ -51,14 +51,24 @@ module.exports.removeAllUsers = function(id, callback){
 			conn.execute(query, this);
 		},
 		function callCallback(err, results){
-			callBack(err, results);
+			callback(err, results);
 		}
 	);
 }
 
-module.exports.relateUsers(id, users, callback){
-	var query = 'INSERT INTO user_kanban SET user_id = ' + user_id + ', kanban_id = '+ id;
-	Step(){
-		for(var i = 0; i +)
-	}
+module.exports.relateUsers = function(id, users, callback){
+	Step(
+		function updateUser(){
+			while(users.length > 0){
+				var user = users.pop();
+				var query = 'INSERT INTO user_kanban SET user_id = ' + user + ', kanban_id = '+ id;
+				conn.execute(query, this);
+			}
+		},
+		function loop(err, result){
+			if(users.length == 0){
+				callback(err, result);
+			}
+		}
+	);
 }
