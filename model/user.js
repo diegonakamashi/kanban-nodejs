@@ -44,7 +44,7 @@ module.exports.create = function(user, callback){
 }
 
 module.exports.getByKanbanId = function(id, callback){
-	var query = 'SELECT * FROM user, user_kanban WHERE user.id = user_kanban.user_id AND user_kanban.kanban_id = ' + id;
+	var query = 'SELECT * FROM user, user_kanban WHERE user.id = user_kanban.user_id AND user.role = 0 AND user_kanban.kanban_id = ' + id;
 
 	Step(
 		function execQuery(){
@@ -57,7 +57,7 @@ module.exports.getByKanbanId = function(id, callback){
 }
 
 module.exports.getKanbanRelatedUsers = function(kanban_id, callback){
-	var query = 'SELECT u.id as id, u.username as username, u.role as role, uk.kanban_id as kanban_id, uk.user_id as user_id FROM user u  LEFT OUTER JOIN user_kanban uk ON u.id = uk.user_id and uk.kanban_id=' + kanban_id;
+	var query = 'SELECT u.id as id, u.username as username, u.role as role, uk.kanban_id as kanban_id, uk.user_id as user_id FROM user u  LEFT OUTER JOIN user_kanban uk ON u.id = uk.user_id and uk.kanban_id=' + kanban_id + ' WHERE u.role = 0';
 	Step(
 		function execQuery(){
 			conn.execute(query, this);

@@ -45,7 +45,7 @@ module.exports.create = function(kanban, user, callback){
 }
 
 module.exports.removeAllUsers = function(id, callback){
-	var query = 'DELETE from user_kanban WHERE kanban_id = ' + id;
+	var query = 'DELETE from user_kanban WHERE kanban_id = ' + id + ' and user_id in (SELECT user.id FROM user where user.role = 0)';
 	Step(
 		function executeQuery(){
 			conn.execute(query, this);
