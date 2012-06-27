@@ -53,7 +53,8 @@ console.log("Server has started.");
 var client = bayeux.getClient();
 client.subscribe(FAYE_PATH, function(message) {
 	console.log("Server -- Receive message "+ Util.inspect(message) );
-	client.publish(FAYE_PATH_UPDATE, message);
+	console.log('Sending message to ' + FAYE_PATH_UPDATE+'_CHANNEL_'+message.kanban_id);
+	client.publish(FAYE_PATH_UPDATE+'_CHANNEL_'+message.kanban_id, message);
 }).callback(function() {
 	console.log('Subscription is now active!');
 }); 

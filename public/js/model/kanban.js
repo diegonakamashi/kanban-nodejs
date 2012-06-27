@@ -16,6 +16,7 @@ function Kanban(id){
   	var kanbanHtml = new KanbanHtml(self);
   	var _id = id;
   	
+	FAYEPATH_UPDATE = FAYEPATH_UPDATE+'_CHANNEL_'+id;
 
   	self.getId = function(){
   		return _id;	
@@ -106,6 +107,7 @@ function Kanban(id){
 	self.sendNewSpotMsg = function(spot){
 		var self = this;
 		fayeClient.publish(FAYEPATH_SEND, {
+			kanban_id: _id,
 			type: 'new_spot',
 			spot: spot
 		});
@@ -114,6 +116,7 @@ function Kanban(id){
 	self.sendNewPostItMsg = function(pit){
 		var self = this;
 		fayeClient.publish(FAYEPATH_SEND, {
+			kanban_id: _id,
 			type: 'new_postit',
 			postit: pit
 		});
@@ -122,6 +125,7 @@ function Kanban(id){
 	self.sendDeletePostItMsg = function(id){
 		var self = this;
 		fayeClient.publish(FAYEPATH_SEND, {
+			kanban_id: _id,
 			type: 'delete_pit',
 			postitId: id
 		});
@@ -130,6 +134,7 @@ function Kanban(id){
 	self.sendDeleteSpotMsg = function(id){
 		var self = this;
 		fayeClient.publish(FAYEPATH_SEND, {
+			kanban_id: _id,
 			type: 'delete_spot',
 			postitId: id
 		});
@@ -147,7 +152,8 @@ function Kanban(id){
 			    var p_it = $("#"+movingPostit);
 			    var position = p_it.offset();
 			    fayeClient.publish(FAYEPATH_SEND, {
-				    type: 'moving',
+				    kanban_id: _id,
+					type: 'moving',
       				x: e.pageX,
       				y: e.pageY,
       				postit: movingPostit
@@ -212,7 +218,8 @@ function Kanban(id){
 				    $( ui.draggable ).appendTo( this );		
 				    movingPostit = undefined;
 				    fayeClient.publish(FAYEPATH_SEND, {
-					    type: 'drop',
+					    kanban_id: _id,
+						type: 'drop',
       					p_id: ui.draggable[0].id,
       					newSpot: this.id
 				    });	
