@@ -1,3 +1,4 @@
 li
 	a(href='/kanban/' + kanban.id)=kanban.title
-	a(href='/kanban/'+kanban.id+'/users/') Users
+	if user.role == 1
+		a(href='/kanban/'+kanban.id+'/users/') Users
