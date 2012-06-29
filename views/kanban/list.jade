@@ -1,6 +1,12 @@
-<h1>Kanbans
-
-ul#kanbans_list!= partial('kanban', {collection: kanbans});
+h1 Kanbans
+table#kanbans_table
+	thead
+		tr
+			th Name
+			if user.role == 1
+				th Users
+	tbody
+		!= partial('kanban', {collection: kanbans});
 
 - if (user.role == 1)
 	p

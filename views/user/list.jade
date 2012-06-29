@@ -1,5 +1,11 @@
-<h1>Users
+h1 Users
 
-ul#users_list!= partial('user', {collection: users});
+table#users_table
+	thead
+		tr
+			th Username
+	tbody
+		!= partial('user', {collection: users});
+
 p
 	a(href="/user/new") Add

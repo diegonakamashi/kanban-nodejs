@@ -14,9 +14,15 @@ script
 		
 	}
 
-<h1>KanbanUsers
+h1 KanbanUsers
 
-ul#kanban_users_list!= partial('user', {collection: users});
+table#kanban_users_table
+	thead
+		tr
+			td Username
+			td
+	tbody
+		!= partial('user', {collection: users});
 
 
 input(type='button', id='user_kanban_submit', value='Save', onclick='saveUsersKanban()')
