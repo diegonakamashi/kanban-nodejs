@@ -36,7 +36,20 @@ html
 					kanban.build("local"); 
 					$('#new_spot_kanbanId').val(#{kanbanId});
 					$('#new_postit_kanbanId').val(#{kanbanId});
-				})
+				});
+
+				$('#new_spot_div').dialog({
+					autoOpen: false,
+					height: 300,
+					width: 500,
+					modal: true, //????
+					buttons: {
+						"New Spot" : newSpot,
+						"Cancel" : function(){
+							$(this).dialog("close");
+						}
+					},
+				});
 			});
 
 			function openNewPostItDiv(){
@@ -44,7 +57,7 @@ html
 			}
 			
 			function openNewSpotDiv(){
-				$('#new_spot_div').toggle();
+				$('#new_spot_div').dialog("open");
 			}
 
 			function deletePostIt(id){
@@ -99,15 +112,13 @@ html
 		label(for='new_postit_label_open_div', onclick='openNewPostItDiv()') New Posit:
 		div(id='local')
 		div(id='new_spot_div', class='popup')
-			p
+			fieldset
 				label(for='new_spot_title_label') Title:
-				input(type='text', name='new_spot_title', id='new_spot_title')
-			p
+				input(type='text', name='new_spot_title', id='new_spot_title', class="text ui-widget-content ui-corner-all")
 				label(for='new_spot_description_label') Description:
 				input(type='text', name='new_spot_description', id='new_spot_description')
 				input(type='hidden', id='new_spot_kanbanId', name='new_spot_kanbanId', value='')
-			p
-				input(type='button', id='new_spot_submit', value='New Spot', onclick='newSpot()')
+
 		div(id='new_postit_div', class='popup')
 			p
 				label(for='new_postit_text_label') Title:
