@@ -1,6 +1,6 @@
 h1 Users
 
-table#users_table
+table#users_table.table.table-condensed
 	thead
 		tr
 			th Username
@@ -8,4 +8,4 @@ table#users_table
 		!= partial('user', {collection: users});
 
 p
-	a(href="/user/new") Add
+	a(href="/user/new", class='btn') Add

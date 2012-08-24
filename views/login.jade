@@ -4,6 +4,9 @@ html
 		script(src='/js/3rd/md5-min.js')
 		script(src='/js/login/login.js')
 		link(rel='stylesheet', href='/stylesheets/style.css') 	
+		script(src='/stylesheets/bootstrap/js/bootstrap.min.js')
+		link(rel='stylesheet', href='/stylesheets/bootstrap/css/bootstrap.min.css')
+
 		title= title
 	body		
 		h1 Login
@@ -16,4 +19,4 @@ html
 				input(type='password', name='login_password', id='login_password')
 				input(type='hidden', id='login_hashpassword', name='login_hashpassword', value="")
 			p
-				input(type='button', id='login_btn', value='Login')
+				input(type='button', id='login_btn', value='Login', class='btn')

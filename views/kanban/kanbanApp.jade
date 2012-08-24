@@ -108,8 +108,8 @@ html
 		- if(typeof(save_error) != 'undefined')
 			!= save_error
 		
-		label(for='new_spot_label_open_div', onclick='openNewSpotDiv()') New Spot:
-		label(for='new_postit_label_open_div', onclick='openNewPostItDiv()') New Posit:
+		input(type='button', onclick='openNewSpotDiv()', value='New Spot:')
+		input(type='button', onclick='openNewPostItDiv()',  value='New Posit:')
 		div(id='local')
 		div(id='new_spot_div', class='popup')
 			fieldset

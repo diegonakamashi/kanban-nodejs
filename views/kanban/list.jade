@@ -1,5 +1,5 @@
 h1 Kanbans
-table#kanbans_table
+table#kanbans_table.table.table-condensed
 	thead
 		tr
 			th Name
@@ -10,4 +10,4 @@ table#kanbans_table
 
 - if (user.role == 1)
 	p
-		a(href="/kanban/new") Add
+		a(href="/kanban/new", class='btn') Add
